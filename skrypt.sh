@@ -1,18 +1,21 @@
 #!/bin/bash
 
-if [ "$1" == "--date" ]; then
+showhelp() {
+    echo "Dostępne opcje:"
+    echo "--date, -d    Wyświetla dzisiejszą datę"
+    echo "--logs, -l [liczba] Tworzy pliki log_x.txt z informacjami"
+    echo "--help, -h    Wyświetla pomoc"
+}
+
+if [[ "$1" == "--date"  "$1" == "-d" ]]; then
     date
-elif [ "$1" == "--logs" ]; then
-    numfiles=${2:-100}
+elif [[ "$1" == "--logs"  "$1" == "-l" ]]; then
+    num_files=${2:-100}
     for ((i=1; i<=num_files; i++)); do
         echo -e "Plik numer: $i\nNazwa skryptu: $0\nData: $(date)" > log$i.txt
     done
-elif [ "$1" == "--help" ]; then
-    echo "Dostępne opcje:"
-    echo "--date        Wyświetla dzisiejszą datę"
-    echo "--logs [liczba] Tworzy pliki log_x.txt z informacjami"
-    echo "--help        Wyświetla pomoc"
+elif [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    show_help
 else
-    echo "Użycie: $0 --date | --logs [liczba] | --help"
+    echo "Użycie: $0 --date | -d | --logs [liczba] | -l [liczba] | --help | -h"
 fi
-
